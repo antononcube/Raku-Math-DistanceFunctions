@@ -46,16 +46,6 @@ for @funcs -> $p {
     say "{$p.key} : {$p.value.(@v1, @v2)}";
 }
 ```
-```
-# bray-curtis-distance : 0.6620715337403009
-# canberra-distance : 6.0273513448541465
-# chessboard-distance : 7.627382066931661
-# cosine-distance : 0.25766397325924495
-# euclidean-distance : 15.42933519068569
-# hamming-distance : 10
-# manhattan-distance : 39.91889505299974
-# squared-euclidean-distance : 238.0643844265318
-```
 
 -----
 
