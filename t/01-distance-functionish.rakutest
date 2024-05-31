@@ -1,0 +1,53 @@
+use v6.d;
+use Test;
+
+use Math::DistanceFunctionish;
+
+plan 13;
+
+## 1
+is Math::DistanceFunctionish.hamming-distance([1,2,2],[4,7,2]), 2, 'Hamming distance over integer vectors';
+
+## 2
+is Math::DistanceFunctionish.hamming-distance('abc'.comb, 'cba'.comb), 2, 'Hamming distance over character vectors';
+
+## 3
+is Math::DistanceFunctionish.hamming-distance('abc', 'cba'), 2, 'Hamming distance over strings';
+
+## 4
+is Math::DistanceFunctionish.cosine-distance([1,1,0], [0,1,2]), 1 - 1 / sqrt(10), 'Cosine distance over arrays';
+
+## 5
+is Math::DistanceFunctionish.euclidean-distance([1,1,0], [0,1,2]), sqrt(5), 'Euclidean distance over arrays';
+
+## 6
+dies-ok { Math::DistanceFunctionish.euclidean-distance([1,1,0,2], [0,1,2]) }, 'Euclidean distance over non-same length arrays';
+
+## 7
+is Math::DistanceFunctionish.manhattan-distance([1,2,3], [2,4,6]), 6, 'Manhattan distance over arrays';
+
+## 8
+is Math::DistanceFunctionish.chessboard-distance([1,2,3], [2,4,6]), 3, 'Chessboard distance over arrays';
+
+## 9
+is Math::DistanceFunctionish.bray-curtis-distance([1,2,3], [2,4,6]), 1/3, 'Bray-Curtis distance over arrays';
+
+## 10
+is Math::DistanceFunctionish.canberra-distance([1,2,3], [2,4,6]), 1, 'Canberra distance over arrays';
+
+## 11
+is Math::DistanceFunctionish.get-distance-function('canberra-distance')([1,2,3], [2,4,6]),
+        Math::DistanceFunctionish.canberra-distance([1,2,3], [2,4,6]),
+        'get-distance-function equivalence over Canberra';
+
+## 12
+is Math::DistanceFunctionish.get-distance-function('bray-curtis')([1,2,3], [2,4,6]),
+        Math::DistanceFunctionish.bray-curtis-distance([1,2,3], [2,4,6]),
+        'get-distance-function equivalence over "bray-curtis"';
+
+## 13
+is Math::DistanceFunctionish.get-distance-function('BrayCurtis')([1,2,3], [2,4,6]),
+        Math::DistanceFunctionish.bray-curtis-distance([1,2,3], [2,4,6]),
+        'get-distance-function equivalence over "BrayCurtis"';
+
+done-testing;
