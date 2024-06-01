@@ -41,9 +41,9 @@ role Math::DistanceFunctionish {
         }
     }
 
-    method get-distance-function(Str $spec is copy --> Callable) {
+    method get-distance-function(Str $spec is copy, Bool :$warn = True --> Callable) {
         if %distance-functions{$spec}:!exists {
-            warn "No distance function for the spec { $spec.raku }.";
+            note "No distance function for the spec ⎡{ $spec.raku }⎦." if $warn;
             return WhateverCode;
         }
         return self.^lookup(%distance-functions{$spec}).assuming(self);
