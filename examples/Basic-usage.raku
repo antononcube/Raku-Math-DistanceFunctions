@@ -1,8 +1,6 @@
 #!/usr/bin/env raku
 use v6.d;
 
-use lib <. lib>;
-
 use Math::DistanceFunctions;
 
 my @v1 = 10.rand xx 10;
