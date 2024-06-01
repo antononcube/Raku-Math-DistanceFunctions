@@ -103,19 +103,21 @@ multi sub squared-euclidean-distance(|) {
 #----------------------------------------------------------
 proto sub norm(|) is export {*}
 
-multi sub norm(Seq:D $vec, :$p --> Numeric) {
-    return norm($vec.List, :$p);
+multi sub norm($vec, $p --> Numeric) {
+    return norm(:$vec, :$p);
+}
+
+multi sub norm(@vec, :$p = 2 --> Numeric) {
+    return norm(vector => @vec.Array, :$p);
 }
 
 multi sub norm(:v(:@vector), :$p --> Numeric) {
-    return $dfObj.norm(:$p, :@vector);
-}
-
-multi sub norm(@vec, :$p --> Numeric) {
-    return $dfObj.norm(@vec.Array, :$p);
+    return $dfObj.norm(:@vector, :$p);
 }
 
 multi sub norm(|) {
-    die 'The first argument is expected to be a vector.' ~
-            ' The named argument $p is expected to be p-norm specification (a number or a string.)';
+    die 'If two positional arguments are given then: (i) the first argument is expected to be a vector, ' ~
+            '(ii) the second argument is expected to be p-norm specification (a number or a string.)' ~
+            'If a positional and a named argument are given then the positional argument is expected to be a vector. ' ~
+            'Two named arguments can be given, :v($vector) and :$p.';
 }

@@ -79,19 +79,18 @@ role Math::DistanceFunctionish {
     ## Norm
     ##-------------------------------------------------------
 
-    multi method norm(@vector --> Numeric) {
-        return self.norm('euclidean', @vector);
-    }
-
-    multi method norm(@vector, :$p = 'euclidean' --> Numeric) {
-        return self.norm($p, @vector);
-    }
-
-    multi method norm($p, @vector, --> Numeric) {
+    # Two positional argument
+    multi method norm(@vector, $p --> Numeric) {
         return self.norm(:$p, :@vector);
     }
 
-    multi method norm(:$p, :v(:@vector), --> Numeric) {
+    # One positional argument
+    multi method norm(@vector, :$p = 2, --> Numeric) {
+        return self.norm(:$p, :@vector);
+    }
+
+    # Two named arguments
+    multi method norm(:v(:@vector)!, :$p = 2, --> Numeric) {
         given $p {
             when $_ (elem) <max-norm inf-norm inf infinity> {
                 @vector.map({ abs($_) }).max
