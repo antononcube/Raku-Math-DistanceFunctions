@@ -1,7 +1,7 @@
 {
   "name": "Math::DistanceFunctions",
   "description": "Raku package with a collection of mathematical distance functions and a corresponding role.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "perl": "6.d",
   "authors": [
     "Anton Antonov"
