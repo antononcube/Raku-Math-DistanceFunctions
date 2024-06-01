@@ -99,3 +99,23 @@ multi sub squared-euclidean-distance(@v1, @v2 --> Numeric) {
 multi sub squared-euclidean-distance(|) {
     die $errMsg;
 }
+
+#----------------------------------------------------------
+proto sub norm(|) is export {*}
+
+multi sub norm(Seq:D $vec, :$p --> Numeric) {
+    return norm($vec.List, :$p);
+}
+
+multi sub norm(:v(:@vector), :$p --> Numeric) {
+    return $dfObj.norm(:$p, :@vector);
+}
+
+multi sub norm(@vec, :$p --> Numeric) {
+    return $dfObj.norm(@vec.Array, :$p);
+}
+
+multi sub norm(|) {
+    die 'The first argument is expected to be a vector.' ~
+            ' The named argument $p is expected to be p-norm specification (a number or a string.)';
+}

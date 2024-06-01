@@ -79,17 +79,37 @@ role Math::DistanceFunctionish {
     ## Norm
     ##-------------------------------------------------------
 
-    multi method norm(@vec --> Numeric) {
-        return self.norm('euclidean', @vec);
+    multi method norm(@vector --> Numeric) {
+        return self.norm('euclidean', @vector);
     }
 
-    multi method norm($spec, @vec --> Numeric) {
-        given $spec {
-            when $_ (elem) <max-norm inf-norm inf infinity> { @vec.map({ abs($_) }).max }
-            when $_.Str eq '1' or $_ (elem) <one-norm one sum> { @vec.map({ abs($_) }).sum }
-            when $_.isa(Whatever) or $_
-                    .Str eq '2' or $_ (elem) <euclidean cosine two-norm two> { sqrt(sum(@vec <<*>> @vec)) }
-            default { die "Unknown norm specification '$spec'."; }
+    multi method norm(@vector, :$p = 'euclidean' --> Numeric) {
+        return self.norm($p, @vector);
+    }
+
+    multi method norm($p, @vector, --> Numeric) {
+        return self.norm(:$p, :@vector);
+    }
+
+    multi method norm(:$p, :v(:@vector), --> Numeric) {
+        given $p {
+            when $_ (elem) <max-norm inf-norm inf infinity> {
+                @vector.map({ abs($_) }).max
+            }
+
+            when $_.Str eq '1' || $_ (elem) <one-norm one sum> {
+                @vector.map({ abs($_) }).sum
+            }
+
+            when $_.isa(Whatever) || $_.Str eq '2' || $_ (elem) <euclidean cosine two-norm two> {
+                sqrt(sum(@vector <<*>> @vector))
+            }
+
+            when $_ ~~ Numeric:D {
+                sum(@vector.map({ abs($_) ** $p })) ** (1/$p)
+            }
+
+            default { die "Unknown norm type specification ⎡$p⎦."; }
         }
     }
 
