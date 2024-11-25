@@ -53,6 +53,17 @@ multi sub cosine-distance(|) {
 }
 
 #----------------------------------------------------------
+proto sub dot-product(|) is export {*}
+
+multi sub dot-product(@v1, @v2 --> Numeric) {
+    return $dfObj.dot-product(@v1, @v2);
+}
+
+multi sub dot-product(|) {
+    die $errMsg;
+}
+
+#----------------------------------------------------------
 proto sub euclidean-distance(|) is export {*}
 
 multi sub euclidean-distance(@v1, @v2 --> Numeric) {

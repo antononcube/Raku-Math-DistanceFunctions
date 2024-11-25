@@ -19,6 +19,7 @@ role Math::DistanceFunctionish {
              Canberra => 'canberra-distance',
              Chessboard => 'chessboard-distance',
              Cosine => 'cosine-distance',
+             Dot => 'dot-product',
              Euclidean => 'euclidean-distance',
              Hamming => 'hamming-distance',
              Manhattan => 'manhattan-distance',
@@ -152,6 +153,20 @@ role Math::DistanceFunctionish {
 
         # Compute distance
         return 1.0 - ([+] (@v1 >>*<< @v2)) / (self.norm(@v1) * self.norm(@v2));
+    }
+
+    ##-------------------------------------------------------
+    ## Dot
+    ##-------------------------------------------------------
+
+    method dot-product(@v1, @v2 --> Numeric) {
+
+        if !self.args-check(@v1, @v2) {
+            die;
+        }
+
+        # Compute dot product
+        return [+] (@v1 >>*<< @v2);
     }
 
     ##-------------------------------------------------------

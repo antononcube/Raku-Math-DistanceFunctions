@@ -45,4 +45,7 @@ is norm(([1,2,3] Z- [2,4,6]), p => 1), 6, '1-Norm over array';
 ## 12
 is norm(v => ([1,2,3] Z- [2,4,6]), p => 'max-norm'), 3, 'Max-norm over array';
 
+## 13
+is dot-product([1,2,3], [2,4,6]), 28, 'Dot product over arrays';
+
 done-testing;
