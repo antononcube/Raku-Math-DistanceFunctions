@@ -36,6 +36,7 @@ my @funcs = [
     :&canberra-distance,
     :&chessboard-distance,
     :&cosine-distance,
+    :&dot-product,
     :&euclidean-distance,
     :&hamming-distance,
     :&manhattan-distance,
@@ -47,14 +48,15 @@ for @funcs -> $p {
 }
 ```
 ```
-# bray-curtis-distance : 0.6620715337403009
-# canberra-distance : 6.0273513448541465
-# chessboard-distance : 7.627382066931661
-# cosine-distance : 0.25766397325924495
-# euclidean-distance : 15.42933519068569
+# bray-curtis-distance : 0.7107698675221625
+# canberra-distance : 6.600469251804158
+# chessboard-distance : 8.604110240958953
+# cosine-distance : 0.24446081451567536
+# dot-product : 54.32679087340601
+# euclidean-distance : 16.83700407574092
 # hamming-distance : 10
-# manhattan-distance : 39.91889505299974
-# squared-euclidean-distance : 238.0643844265318
+# manhattan-distance : 43.55948124843889
+# squared-euclidean-distance : 283.48470624651634
 ```
 
 -----
