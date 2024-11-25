@@ -5,6 +5,12 @@ Raku package with a collection of mathematical distance functions and a correspo
 The content of this package was "factored out" from 
 ["ML::Clustering"](https://raku.land/zef:antononcube/ML::Clustering), [AAp1].  
 
+Faster versions of these functions are implemented in 
+["Math::DistanceFunctions::Native"](https://github.com/antononcube/Raku-Math-DistanceFunctions-Native), [AAp2].
+
+A special package has the "edit distance" (aka Damerau-Levenshtein distance) -- see
+["Math::DistanceFunctions::Edit"](https://github.com/antononcube/Raku-Math-DistanceFunctions-Edit), [AAp3].
+
 ------
 
 ## Installation
@@ -48,15 +54,15 @@ for @funcs -> $p {
 }
 ```
 ```
-# bray-curtis-distance : 0.7107698675221625
-# canberra-distance : 6.600469251804158
-# chessboard-distance : 8.604110240958953
-# cosine-distance : 0.24446081451567536
-# dot-product : 54.32679087340601
-# euclidean-distance : 16.83700407574092
+# bray-curtis-distance : 0.6151407918691146
+# canberra-distance : 5.824952422823202
+# chessboard-distance : 8.570769750374787
+# cosine-distance : 0.10484766994026384
+# dot-product : 65.06821530189765
+# euclidean-distance : 14.296040411329631
 # hamming-distance : 10
-# manhattan-distance : 43.55948124843889
-# squared-euclidean-distance : 283.48470624651634
+# manhattan-distance : 38.15520204868512
+# squared-euclidean-distance : 204.37677144236991
 ```
 
 -----
@@ -64,3 +70,13 @@ for @funcs -> $p {
 ## References
 
 [AAp1] Anton Antonov, [ML:Clustering Raku package](https://github.com/antononcube/Raku-ML-Clustering), (2022), [GitHub/antononcube](https://github.com/antononcube). 
+
+[AAp2] Anton Antonov, 
+[Math::DistanceFunctions::Edit Raku package](https://github.com/antononcube/Raku-Math-DistanceFunctions-Edit), 
+(2024), 
+[GitHub/antononcube](https://github.com/antononcube). 
+
+[AAp3] Anton Antonov, 
+[Math::DistanceFunctions::Native Raku package](https://github.com/antononcube/Raku-Math-DistanceFunctions-Native), 
+(2024), 
+[GitHub/antononcube](https://github.com/antononcube). 

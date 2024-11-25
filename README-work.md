@@ -5,6 +5,12 @@ Raku package with a collection of mathematical distance functions and a correspo
 The content of this package was "factored out" from 
 ["ML::Clustering"](https://raku.land/zef:antononcube/ML::Clustering), [AAp1].  
 
+Faster versions of these functions are implemented in 
+["Math::DistanceFunctions::Native"](https://github.com/antononcube/Raku-Math-DistanceFunctions-Native), [AAp2].
+
+A special package has the "edit distance" (aka Damerau-Levenshtein distance) -- see
+["Math::DistanceFunctions::Edit"](https://github.com/antononcube/Raku-Math-DistanceFunctions-Edit), [AAp3].
+
 ------
 
 ## Installation
@@ -53,3 +59,13 @@ for @funcs -> $p {
 ## References
 
 [AAp1] Anton Antonov, [ML:Clustering Raku package](https://github.com/antononcube/Raku-ML-Clustering), (2022), [GitHub/antononcube](https://github.com/antononcube). 
+
+[AAp2] Anton Antonov, 
+[Math::DistanceFunctions::Edit Raku package](https://github.com/antononcube/Raku-Math-DistanceFunctions-Edit), 
+(2024), 
+[GitHub/antononcube](https://github.com/antononcube). 
+
+[AAp3] Anton Antonov, 
+[Math::DistanceFunctions::Native Raku package](https://github.com/antononcube/Raku-Math-DistanceFunctions-Native), 
+(2024), 
+[GitHub/antononcube](https://github.com/antononcube). 
