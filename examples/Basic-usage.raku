@@ -11,6 +11,7 @@ my @funcs = [
     :&canberra-distance,
     :&chessboard-distance,
     :&cosine-distance,
+    :&dot-product
     :&euclidean-distance,
     :&hamming-distance,
     :&manhattan-distance,
