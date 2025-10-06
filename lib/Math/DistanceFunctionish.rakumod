@@ -54,7 +54,7 @@ role Math::DistanceFunctionish {
     ## Arguments check
     ##-------------------------------------------------------
 
-    my $msgSameLengths = 'The given vectors are expected to have the same number of arguments.';
+    my $msgSameLengths = 'The given vectors are expected to have the same number of elements.';
 
     method args-check(@v1, @v2 --> Bool) {
         # Check arguments
