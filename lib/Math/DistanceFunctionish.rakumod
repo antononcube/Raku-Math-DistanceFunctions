@@ -18,6 +18,7 @@ role Math::DistanceFunctionish {
             (BrayCurtis => 'bray-curtis-distance',
              Canberra => 'canberra-distance',
              Chessboard => 'chessboard-distance',
+             Chebyshev => 'chessboard-distance',
              Cosine => 'cosine-distance',
              Dot => 'dot-product',
              Euclidean => 'euclidean-distance',
@@ -26,6 +27,7 @@ role Math::DistanceFunctionish {
              SquaredEuclidean => 'squared-euclidean-distance')
                     .map({ ($_.key => $_.value,
                             $_.key ~ 'Distance' => $_.value,
+                            $_.key.lc ~ '-distance' => $_.value,
                             $_.value => $_.value,
                             $_.value.subst('-distance', '') => $_.value ) }).flat
             .map({ ($_.key => $_.value,
