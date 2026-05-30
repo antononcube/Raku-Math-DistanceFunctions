@@ -98,7 +98,10 @@ role Math::DistanceFunctionish {
     # Two named arguments
     multi method norm(:v(:@vector)!, :$p = 2, --> Numeric) {
         if @vector ~~ CArray:D {
-            return Math::DistanceFunctions::Native::norm(@vector, :$p)
+            try {
+                return Math::DistanceFunctions::Native::norm(@vector, :$p)
+            }
+            if $! { note 'Could not use native implementation.' }
         }
 
         given $p {
@@ -130,10 +133,13 @@ role Math::DistanceFunctionish {
         
         die unless self.args-check(@v1, @v2);
 
-        return Math::DistanceFunctions::Native::euclidean-distance(@v1, @v2);
+        try {
+            return Math::DistanceFunctions::Native::euclidean-distance(@v1, @v2);
+        }
 
         # Compute distance
-        # return sqrt([+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 }));
+        if $! { note 'Could not use native implementation.' }
+        return sqrt([+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 }));
     }
 
     ##-------------------------------------------------------
@@ -144,10 +150,13 @@ role Math::DistanceFunctionish {
 
         die unless self.args-check(@v1, @v2);
 
-        return Math::DistanceFunctions::Native::squared-euclidean-distance(@v1, @v2);
+        try {
+            return Math::DistanceFunctions::Native::squared-euclidean-distance(@v1, @v2);
+        }
 
         # Compute distance
-        #return [+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 });
+        if $! { note 'Could not use native implementation.' }
+        return [+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 });
     }
 
     ##-------------------------------------------------------
@@ -158,10 +167,13 @@ role Math::DistanceFunctionish {
 
         die unless self.args-check(@v1, @v2);
 
-        return Math::DistanceFunctions::Native::cosine-distance(@v1, @v2);
+        try {
+            return Math::DistanceFunctions::Native::cosine-distance(@v1, @v2);
+        }
 
         # Compute distance
-        # return 1.0 - ([+] (@v1 >>*<< @v2)) / (self.norm(@v1) * self.norm(@v2));
+        if $! { note 'Could not use native implementation.' }
+        return 1.0 - ([+] (@v1 >>*<< @v2)) / (self.norm(@v1) * self.norm(@v2));
     }
 
     ##-------------------------------------------------------
@@ -172,10 +184,13 @@ role Math::DistanceFunctionish {
 
         die unless self.args-check(@v1, @v2);
 
-        return Math::DistanceFunctions::Native::dot-product(@v1, @v2);
+        try {
+            return Math::DistanceFunctions::Native::dot-product(@v1, @v2);
+        }
 
         # Compute dot product
-        # return [+] (@v1 >>*<< @v2);
+        if $! { note 'Could not use native implementation.' }
+        return [+] (@v1 >>*<< @v2);
     }
 
     ##-------------------------------------------------------
