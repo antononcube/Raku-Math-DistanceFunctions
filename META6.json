@@ -1,21 +1,20 @@
 {
-  "name": "Math::DistanceFunctions",
-  "description": "Raku package with a collection of mathematical distance functions and a corresponding role.",
-  "version": "0.1.3",
-  "perl": "6.d",
-  "authors": [
-    "Anton Antonov"
-  ],
-  "auth": "zef:antononcube",
-  "depends": [],
-  "build-depends": [],
-  "test-depends": [],
-  "provides": {
-    "Math::DistanceFunctionish": "lib/Math/DistanceFunctionish.rakumod",
-    "Math::DistanceFunctions": "lib/Math/DistanceFunctions.rakumod"
-  },
-  "resources": [],
-  "license": "Artistic-2.0",
-  "api": "1",
-  "source-url": "https://github.com/antononcube/Raku-Math-DistanceFunctions.git"
+    "name": "Math::DistanceFunctions",
+    "description": "Raku package with a collection of mathematical distance functions and a corresponding role.",
+    "version": "0.1.4",
+    "authors": [
+        "Anton Antonov"
+    ],
+    "auth": "zef:antononcube",
+    "depends": [
+        "Math::DistanceFunctions::Native:ver<0.1.1+>"
+    ],
+    "build-depends": [],
+    "provides": {
+        "Math::DistanceFunctionish": "lib/Math/DistanceFunctionish.rakumod",
+        "Math::DistanceFunctions": "lib/Math/DistanceFunctions.rakumod"
+    },
+    "license": "Artistic-2.0",
+    "api": "1",
+    "source-url": "https://github.com/antononcube/Raku-Math-DistanceFunctions.git"
 }
