@@ -114,15 +114,15 @@ multi sub squared-euclidean-distance(|) {
 #----------------------------------------------------------
 proto sub norm(|) is export {*}
 
-multi sub norm($vec, $p --> Numeric) {
-    return norm(:$vec, :$p);
+multi sub norm($vector, $p = 2 --> Numeric) {
+    return norm(:$vector, :$p);
 }
 
 multi sub norm(@vec, :$p = 2 --> Numeric) {
-    return norm(vector => @vec.Array, :$p);
+    return @vec ~~ Seq:D ?? norm(vector => @vec.Array, :$p) !! norm(vector => @vec, :$p);
 }
 
-multi sub norm(:v(:@vector), :$p --> Numeric) {
+multi sub norm(:v(:@vector), :$p = 2 --> Numeric) {
     return $dfObj.norm(:@vector, :$p);
 }
 

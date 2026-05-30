@@ -1,5 +1,8 @@
 use v6.d;
 
+use NativeCall;
+use Math::DistanceFunctions::Native;
+
 role Math::DistanceFunctionish {
 
     ##-------------------------------------------------------
@@ -65,12 +68,12 @@ role Math::DistanceFunctionish {
             return False;
         }
 
-        if !(@v1.all ~~ Numeric) {
+        if !(@v1 ~~ CArray:D || @v1.all ~~ Numeric) {
             warn 'All elements of the first argument are expected to be numeric';
             return False;
         }
 
-        if !(@v2.all ~~ Numeric) {
+        if !(@v2 ~~ CArray:D || @v2.all ~~ Numeric) {
             warn 'All elements of the second argument are expected to be numeric';
             return False;
         }
@@ -94,6 +97,10 @@ role Math::DistanceFunctionish {
 
     # Two named arguments
     multi method norm(:v(:@vector)!, :$p = 2, --> Numeric) {
+        if @vector ~~ CArray:D {
+            return Math::DistanceFunctions::Native::norm(@vector, :$p)
+        }
+
         given $p {
             when $_ (elem) <max-norm inf-norm inf infinity> {
                 @vector.map({ abs($_) }).max
@@ -119,56 +126,56 @@ role Math::DistanceFunctionish {
     ## Euclidean
     ##-------------------------------------------------------
 
-    method euclidean-distance(@v1, @v2 --> Numeric) {
+    multi method euclidean-distance(@v1, @v2 --> Numeric) {
+        
+        die unless self.args-check(@v1, @v2);
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        return Math::DistanceFunctions::Native::euclidean-distance(@v1, @v2);
 
         # Compute distance
-        return sqrt([+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 }));
+        # return sqrt([+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 }));
     }
 
     ##-------------------------------------------------------
     ## SquaredEuclidean
     ##-------------------------------------------------------
 
-    method squared-euclidean-distance(@v1, @v2 --> Numeric) {
+    multi method squared-euclidean-distance(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
+
+        return Math::DistanceFunctions::Native::squared-euclidean-distance(@v1, @v2);
 
         # Compute distance
-        return [+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 });
+        #return [+] (@v1 Z @v2).map({ ($_[0] - $_[1]) ** 2 });
     }
 
     ##-------------------------------------------------------
     ## Cosine
     ##-------------------------------------------------------
 
-    method cosine-distance(@v1, @v2 --> Numeric) {
+    multi method cosine-distance(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
+
+        return Math::DistanceFunctions::Native::cosine-distance(@v1, @v2);
 
         # Compute distance
-        return 1.0 - ([+] (@v1 >>*<< @v2)) / (self.norm(@v1) * self.norm(@v2));
+        # return 1.0 - ([+] (@v1 >>*<< @v2)) / (self.norm(@v1) * self.norm(@v2));
     }
 
     ##-------------------------------------------------------
     ## Dot
     ##-------------------------------------------------------
 
-    method dot-product(@v1, @v2 --> Numeric) {
+    multi method dot-product(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
+
+        return Math::DistanceFunctions::Native::dot-product(@v1, @v2);
 
         # Compute dot product
-        return [+] (@v1 >>*<< @v2);
+        # return [+] (@v1 >>*<< @v2);
     }
 
     ##-------------------------------------------------------
@@ -195,9 +202,7 @@ role Math::DistanceFunctionish {
 
     method manhattan-distance(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
 
         # Compute distance
         return (@v1 >>-<< @v2)>>.abs.sum;
@@ -209,9 +214,7 @@ role Math::DistanceFunctionish {
 
     method chessboard-distance(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
 
         # Compute distance
         return (@v1 >>-<< @v2)>>.abs.max;
@@ -223,9 +226,7 @@ role Math::DistanceFunctionish {
 
     method bray-curtis-distance(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
 
         # Compute distance
         return (@v1 >>-<< @v2)>>.abs.sum / (@v1 >>+<< @v2)>>.abs.sum;
@@ -237,9 +238,7 @@ role Math::DistanceFunctionish {
 
     method canberra-distance(@v1, @v2 --> Numeric) {
 
-        if !self.args-check(@v1, @v2) {
-            die;
-        }
+        die unless self.args-check(@v1, @v2);
 
         # Compute distance
         return sum((@v1 >>-<< @v2)>>.abs >>/<< (@v1>>.abs >>+<< @v2>>.abs));
