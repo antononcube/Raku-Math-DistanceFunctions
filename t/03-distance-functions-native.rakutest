@@ -1,0 +1,45 @@
+use v6.d;
+use Test;
+
+use Math::DistanceFunctions;
+use NativeCall;
+use NativeHelpers::Array;
+
+plan *;
+
+my @large-vec1 = (^1000).map({1.rand});
+my @large-vec2 = (^1000).map({1.rand});
+my $large-vec1c = copy-to-carray(@large-vec1, num64);
+my $large-vec2c = copy-to-carray(@large-vec2, num64);
+
+## 1
+isa-ok cosine-distance(@large-vec1, @large-vec2), Numeric:D, 'Cosine distance over arrays';
+
+## 2
+isa-ok cosine-distance($large-vec1c, $large-vec2c), Numeric:D, 'Cosine distance over CArrays';
+
+## 3
+isa-ok euclidean-distance(@large-vec1, @large-vec2), Numeric:D, 'Euclidean distance over arrays';
+
+## 4
+isa-ok euclidean-distance($large-vec1c, $large-vec2c), Numeric:D, 'Euclidean distance over CArrays';
+
+## 5
+isa-ok squared-euclidean-distance(@large-vec1, @large-vec2), Numeric:D, 'Squared Euclidean distance over arrays';
+
+## 6
+isa-ok squared-euclidean-distance($large-vec1c, $large-vec2c), Numeric:D, 'Squared Euclidean distance over CArrays';
+
+## 7
+isa-ok dot-product(@large-vec1, @large-vec2), Numeric:D, 'Dot product over arrays';
+
+## 8
+isa-ok dot-product($large-vec1c, $large-vec2c), Numeric:D, 'Dot product over CArrays';
+
+## 9
+isa-ok norm(@large-vec1, '2'), Numeric:D, 'Norm over array';
+
+## 10
+isa-ok norm($large-vec1c, '2'), Numeric:D, 'Norm over CArray';
+
+done-testing;
