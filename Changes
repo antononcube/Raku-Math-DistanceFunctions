@@ -1,0 +1,4 @@
+Changes of the Raku package "Math::DistanceFunctions".
+
+2026-05-30 0.1.4
+    - Delegation to "Math::DistanceFunctions::Native" for Euclidean distance, Cosine distance, dot product, and norm.
